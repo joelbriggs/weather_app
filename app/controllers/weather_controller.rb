@@ -1,6 +1,9 @@
-class WeatherController < ApplicationController
-
-    def index
-
+class LocationsController < ApplicationController
+    def show
+      
     end
-end
+  
+    def create
+      
+    end
+  end
