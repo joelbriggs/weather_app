@@ -10,7 +10,7 @@ class WeatherController < ApplicationController
             if coordinates
                 @weather_data = get_weather_data_from_coordinates(coordinates)
                 if @weather_data
-                    @location = load_location_from_coordinates(coordinates)
+                    @location = load_location_from_zip_code(coordinates)
                 else
                     flash.now[:alert] = "Could not retrieve weather data for that location."
                 end
@@ -45,7 +45,7 @@ class WeatherController < ApplicationController
         WeatherDataService.get_weather(coordinates)
     end
 
-    def load_location_from_coordinates(address, coordinates)
+    def load_location_from_zip_code(coordinates)
         Location.find_or_create_by(zip_code: coordinates[2]) do |location|
             location.latitude = coordinates[0]
             location.longitude = coordinates[1]

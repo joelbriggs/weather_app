@@ -19,7 +19,7 @@ class GeocodingService
 
             if json_data['status'] == 'OK'
                 location = json_data['results'].first['geometry']['location']
-                zip_code = json_data['results'].first[0].address_components[6].long_name;
+                zip_code = json_data['results'].first['address_components'][6]['long_name'];
                 [location['lat'], location['lng'], zip_code]
             elsif json_data['status'] == 'ZERO_RESULTS'
                 Rails.logger.warn("No results found for this address: #{address}")
