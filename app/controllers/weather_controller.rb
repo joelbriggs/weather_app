@@ -49,6 +49,7 @@ class WeatherController < ApplicationController
         Location.find_or_create_by(zip_code: coordinates[2]) do |location|
             location.latitude = coordinates[0]
             location.longitude = coordinates[1]
+            location.zip_code = coordinates[2]
         end
     end
   end
