@@ -7,8 +7,8 @@ class GeocodingService
     API_KEY = Rails.application.credentials.dig(:google_maps, :api_key)
     BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json'.freeze
 
-    def self.geocode(address, zip_code)
-        result = Rails.cache.fetch("zip_code:#{zip_code}", expires_in: 30.minutes) do
+    def self.geocode(address)
+        result = Rails.cache.fetch("address:#{address}", expires_in: 30.minutes) do
         begin
             uri = URI(BASE_URL)
             params = { address: address, key: API_KEY }
