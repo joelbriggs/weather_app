@@ -1,3 +1,42 @@
-<div>
-<h1>Weahter Data</h1>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">  
+        <div class="card text-center">
+            <div class="card-header">Weather Data Lookup</div>
+            <%= form_with(model: @location, url: weather_index_path, method: :post, local: true) do |form| %>
+                <div class="card-body">
+                    <% if flash[:alert] %>
+                        <div class="alert alert-danger"><%= flash[:alert] %></div>
+                    <% end %>
+                    <div class="form-group">
+                        <%= form.label :address, "Enter An Address:" %><br>
+                        <%= form.text_field :address, class: "form-control" %>
+                    </div>
+                </div>
+                
+                <div class="card-footer text-muted">
+                    <div class="actions">
+                        <%= form.submit "Get The Weather", class: "btn btn-primary" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
 </div>
+<br>
+
+<% if @weather_data %>
+    <div class="row">
+        <div class="col-md-6 offset-md-3"> 
+            <div class="card text-center border border-primary">
+                <div class="card-header bg-white"><%= image_tag "https://openweathermap.org/img/wn/#{@weather_data['weather'].first['icon']}@2x.png" %></div>
+                <div class="card-body">
+                    <h5 class="card-title">Current Weather for <%= @location.address %></h5>
+                    <p class="card-text">Temperature: <%= @weather_data['main']['temp'] %>°F</p>
+                    <p class="card-text">Wind: <%= @weather_data['wind']['speed'] %></p>
+                    <p class="card-text"><%= @weather_data['weather'].first['main'] %>: <%= @weather_data['weather'].first['description'] %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
